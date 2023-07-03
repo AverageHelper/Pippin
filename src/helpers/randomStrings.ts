@@ -1,4 +1,5 @@
 import type { GuildMember, User } from "discord.js";
+import type { NonEmptyArray } from "../@types/global.js";
 import { randomElementOfArray } from "./randomElementOfArray.js";
 import { useLogger } from "../logger.js";
 import {
