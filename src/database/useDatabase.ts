@@ -1,10 +1,9 @@
-import type { MovieSuggestion, Preferences, QueueConfig } from "./schemas.js";
+import type { MovieSuggestion, QueueConfig } from "./schemas.js";
 import type { Table } from "./googleSheetsDataSource.js";
 import { dataSource } from "./googleSheetsDataSource.js";
 
 interface RowTypes {
 	Suggestions: MovieSuggestion;
-	Preferences: Preferences;
 	Config: QueueConfig;
 }
 
@@ -25,3 +24,8 @@ export async function useRepository<Entity extends TableName, T = undefined>(
 	const sheet = doc.sheetsByTitle[tableName] ?? (await doc.addSheet({ title: tableName }));
 	return await cb(sheet);
 }
+
+// TODO: Helpers for figuring the shape of data in the spreadsheet. Array? String? Number? Date? Etc.
+
+// TODO: For QueueConfig, I think I'll use the header row for the column/property name. One cell beneath means scalar, and multiple means array. Same for QueueConfig.
+// TODO: For Suggestions, each row will need to be an object. I'll use the header row for column/property name.

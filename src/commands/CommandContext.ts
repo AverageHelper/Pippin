@@ -1,7 +1,6 @@
 import type {
+	ChatInputCommandInteraction,
 	Client,
-	CommandInteraction,
-	CommandInteractionOption,
 	DMChannel,
 	Guild,
 	GuildMember,
@@ -16,14 +15,12 @@ import type { Logger } from "../logger.js";
 import type { SupportedLocale } from "../i18n.js";
 import { ChannelType } from "discord.js";
 
-export type MessageCommandInteractionOption = CommandInteractionOption;
-
 /**
  * Information relevant to a command invocation.
  */
 export interface CommandContext {
 	/** The interaction that represents the command invocation. */
-	readonly interaction: CommandInteraction;
+	readonly interaction: ChatInputCommandInteraction;
 
 	/**
 	 * The user's preferred locale.
@@ -71,7 +68,7 @@ export interface CommandContext {
 	readonly createdTimestamp: number;
 
 	/** The options that were passed into the command. */
-	readonly options: ReadonlyArray<MessageCommandInteractionOption>;
+	readonly options: ChatInputCommandInteraction["options"];
 
 	/** Instructs Discord to keep interaction handles open long enough for long-running tasks to complete. */
 	readonly prepareForLongRunningTasks: (ephemeral?: boolean) => void | Promise<void>;

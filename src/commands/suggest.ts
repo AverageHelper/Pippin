@@ -1,16 +1,15 @@
-import type { GuildedCommand } from "./Command.js";
+import type { GlobalCommand } from "./Command.js";
 import type { Message } from "discord.js";
 import type { MediaRequest } from "../actions/queue/processMediaRequest.js";
 import { ApplicationCommandOptionType, hideLinkEmbed } from "discord.js";
 import { localizations, t } from "../i18n.js";
 import { logUser } from "../helpers/logUser.js";
 import { processMediaRequest } from "../actions/queue/processMediaRequest.js";
-import { resolveStringFromOption } from "../helpers/optionResolvers.js";
 import { sendMessageInChannel, stopEscapingUriInString } from "../actions/messages/index.js";
 import { URL } from "node:url";
 import { useJobQueue } from "@averagehelper/job-queue";
 
-export const suggest: GuildedCommand = {
+export const suggest: GlobalCommand = {
 	name: "suggest",
 	nameLocalizations: localizations("commands.suggest.name"),
 	description: "Submit a movie.",
@@ -21,11 +20,12 @@ export const suggest: GuildedCommand = {
 			nameLocalizations: localizations("commands.suggest.options.url.name"),
 			description: "A media link from TheMovieDB",
 			descriptionLocalizations: localizations("commands.suggest.options.url.description"),
+			minLength: 8, // at least "https://"
 			type: ApplicationCommandOptionType.String,
 			required: true
 		}
 	],
-	dmPermission: false,
+	dmPermission: true,
 	async execute(context) {
 		const {
 			guildLocale,
@@ -42,13 +42,8 @@ export const suggest: GuildedCommand = {
 
 		logger.debug(`Got media request message at ${createdTimestamp} from ${logUser(user)}`);
 
-		const firstOption = options[0];
-		if (!firstOption) {
-			const { help } = await import("./help.js");
-			return await help.execute(context);
-		}
+		const escapedMediaUrlString = options.getString("url", true).trim();
 
-		const escapedMediaUrlString = resolveStringFromOption(firstOption).trim();
 		const shouldHideEmbeds =
 			escapedMediaUrlString.startsWith("<") && escapedMediaUrlString.endsWith(">");
 

@@ -1,15 +1,15 @@
-import type { GuildedCommand } from "./Command.js";
+import type { GlobalCommand } from "./Command.js";
 import { localizations } from "../i18n.js";
 import { SLASH_COMMAND_INTENT_PREFIX } from "../constants/database.js";
 import { composed, createPartialString, push, pushNewLine } from "../helpers/composeStrings.js";
 
 // TODO: i18n
-export const help: GuildedCommand = {
+export const help: GlobalCommand = {
 	name: "help",
 	nameLocalizations: localizations("commands.help.name"),
 	description: "Print instructions for using the common commands.",
 	descriptionLocalizations: localizations("commands.help.description"),
-	dmPermission: false,
+	dmPermission: true,
 	async execute({ guildLocale, reply }) {
 		const { suggest } = await import("./suggest.js");
 
@@ -21,8 +21,6 @@ export const help: GuildedCommand = {
 		const COMMAND_PREFIX = SLASH_COMMAND_INTENT_PREFIX; // TODO: Link the commands directly
 		const msg = createPartialString();
 
-		// TODO: Tell ppl to use the /suggest command
-
 		const exampleQuery = "https://youtu.be/dQw4w9WgXcQ"; // :P
 
 		push(
@@ -32,10 +30,7 @@ export const help: GuildedCommand = {
 		pushNewLine(msg);
 		push(`For example: \`${COMMAND_PREFIX}${suggestCommandName} ${exampleQuery}\``, msg);
 		pushNewLine(msg);
-		push(
-			"I will respond with a text verification indicating your movie has joined the listed!",
-			msg
-		);
+		push("I will respond with a text verification indicating your movie has joined the list!", msg);
 
 		return await reply(composed(msg));
 	}

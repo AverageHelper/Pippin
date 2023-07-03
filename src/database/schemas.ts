@@ -18,18 +18,6 @@ export function movieSuggestionFromRaw(value: unknown): MovieSuggestion {
 	return create(value, movieSuggestion);
 }
 
-// MARK: - Preferences
-
-export const preferences = type({
-	messageCommandPrefix: nonempty(string())
-});
-
-export type Preferences = typeof preferences.TYPE;
-
-export function preferencesFromRaw(value: unknown): Preferences {
-	return create(value, preferences);
-}
-
 // MARK: - QueueConfig
 
 export const queueConfig = type({

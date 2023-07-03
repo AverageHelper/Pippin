@@ -3,7 +3,7 @@ import { onEvent } from "../helpers/onEvent.js";
 
 export const interactionCreate = onEvent("interactionCreate", {
 	async execute(interaction, logger) {
-		if (interaction.isCommand()) {
+		if (interaction.isChatInputCommand()) {
 			await handleInteraction(interaction, logger);
 		}
 	}
