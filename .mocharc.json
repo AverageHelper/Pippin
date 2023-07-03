@@ -1,0 +1,9 @@
+{
+	"bail": true,
+	"exit": true,
+	"extensions": ["ts"],
+	"require": ["ts-node/register", "./tests/hooks.ts"],
+	"retries": 2,
+	"spec": ["./tests/**/*.test.ts"],
+	"timeout": 60000
+}

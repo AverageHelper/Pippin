@@ -1,0 +1,96 @@
+{
+	"meta": {
+		"code": "de",
+		"name": "Deutsch",
+		"nickname": "Deutsch"
+	},
+	"commands": {
+		"help": {
+			"description": "Drucken Sie Anweisungen zur Verwendung der allgemeinen Warteschlangenbefehle.",
+			"name": "hilfe"
+		},
+		"ping": {
+			"description": "Pingen Sie meinen Hostserver, um die Latenz zu überprüfen.",
+			"name": "ping",
+			"responses": {
+				"pong": "Pong! Antwort in {time} gesendet. Die API-Latenz beträgt {latency}"
+			}
+		},
+		"suggest": {
+			"description": "Senden Sie einen Song an die Warteschlange.",
+			"name": "suggest",
+			"options": {
+				"url": {
+					"description": "Ein Link zu einem Lied von einer unterstützten Plattform",
+					"name": "url"
+				}
+			},
+			"responses": {
+				"finished": "Fertig.",
+				"not-allowed": "Sie dürfen keine Songs einreichen. Es tut mir Leid.",
+				"rejections": {
+					"allotment-expended": "Sie haben alle {max} Ihrer zugeteilten Einreichungen verwendet.",
+					"cooldown": "Du hast in den letzten {duration} bereits einen Song eingereicht. Sie müssen {remaining} warten, bevor Sie erneut einreichen.",
+					"queue-channel-submission-not-implemented": "Das Einreichen von Songs im Warteschlangenkanal wurde noch nicht implementiert.",
+					"too-long": "Das Lied ist zu lang. Das Limit ist {limit}, aber das Lied ist {actual} lang.",
+					"too-short": "Das Lied ist zu kurz. Das Limit ist {limit}, aber das Lied ist {actual} lang."
+				},
+				"this-queue-full-autoclose": "Diese Warteschlange ist voll. Ich schließe es jetzt.",
+				"query-returned-error": "Diese Abfrage gab mir einen Fehler. Vielleicht nochmal versuchen?",
+				"queue-full-autoclose": "Die Warteschlange ist voll. Ich schließe es jetzt.",
+				"queue-nearly-full": "Die Warteschlange ist fast voll. Einreichen, solange es noch geht!",
+				"song-not-found": "Ich kann das Lied nicht finden.",
+				"submission-accepted": "Einreichung angenommen!",
+				"try-longer-song": "Versuchen Sie es mit einem längeren Lied",
+				"try-shorter-song": "Versuchen Sie es mit einem kürzeren Lied",
+				"try-supported-platform": "Probieren Sie einen Link von einer unterstützten Plattform aus."
+			}
+		},
+		"test": {
+			"description": "Stellen Sie sicher, dass ich immer noch weiß, wie ich mit Videodiensten spreche.",
+			"name": "prüfung",
+			"responses": {
+				"cannot-run-concurrent-invocations": "Bitte warten Sie, jemand hat gerade diesen Befehl ausgeführt...",
+				"preamble-failure": "Äh, etwas ist schief gelaufen. Schau am besten mal hier rein:",
+				"preamble-success": "Ich habe die Zahlen überprüft und es sieht so aus, als ob es uns allen gut geht!",
+				"results-header": "Testergebnisse nach Plattform",
+				"see-on-github": "Sehen Sie sich die {list} auf unserem GitHub an.",
+				"supported-platforms": "Liste der unterstützten Plattformen"
+			}
+		},
+		"version": {
+			"description": "Zeigt die aktuelle Codebasisversion des Bots an.",
+			"name": "ausführung",
+			"response": "Ich verwende derzeit {version}"
+		}
+	},
+	"common": {
+		"count": {
+			"infinity": "Unendlichkeit",
+			"not-a-number": "NaN",
+			"seconds-infinity": "Unendliche Sekunden",
+			"seconds-nan": "NaN Sekunden"
+		},
+		"deprecated": "Veraltet",
+		"dm-failed-disabled": "Ich habe gerade versucht, dir eine DM zu schreiben, aber es sieht so aus, als wären deine DMs deaktiviert.",
+		"no-personal-permission": "Sie haben keine Erlaubnis, diesen Befehl auszuführen.",
+		"not-here": "Das können Sie hier nicht tun.",
+		"queue": {
+			"not-open": "Die Warteschlange ist nicht geöffnet.",
+			"not-set-up": "Es gibt keine Warteschlange."
+		},
+		"reply-from-channel": "Antwort vom {channel}"
+	},
+	"languages": {
+		"de": "Deutsch",
+		"en-GB": "Englisch (Großbritannien)",
+		"en-US": "Englisch (USA)",
+		"es-ES": "Spanisch",
+		"fr": "Französisch",
+		"hu": "Ungarisch",
+		"pt-BR": "Portugiesisch (Brasilien)"
+	},
+	"self": {
+		"unknown-name": "Mir"
+	}
+}

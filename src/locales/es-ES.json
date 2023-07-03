@@ -1,0 +1,96 @@
+{
+	"meta": {
+		"code": "es-ES",
+		"name": "Español",
+		"nickname": "Español"
+	},
+	"commands": {
+		"help": {
+			"description": "Imprima instrucciones para usar los comandos de cola comunes.",
+			"name": "ayuda"
+		},
+		"ping": {
+			"description": "Haga ping a mi servidor host para comprobar la latencia.",
+			"name": "ping",
+			"responses": {
+				"pong": "Pong! Respuesta enviada en {time}. La latencia de la API es de {latency}"
+			}
+		},
+		"suggest": {
+			"description": "Envía una canción a la cola.",
+			"name": "suggest",
+			"options": {
+				"url": {
+					"description": "Un enlace de canción desde una plataforma compatible",
+					"name": "url"
+				}
+			},
+			"responses": {
+				"finished": "Hecho.",
+				"not-allowed": "No tienes permitido enviar canciones. Mis disculpas.",
+				"rejections": {
+					"allotment-expended": "Ha utilizado los {max} envíos asignados.",
+					"cooldown": "Ya has enviado una canción en los últimos {duration}. Debe esperar {remaining} antes de volver a enviar.",
+					"queue-channel-submission-not-implemented": "Aún no se ha implementado la solicitud de canciones en el canal de cola.",
+					"too-long": "Esa canción es demasiado larga. El límite es de {limit}, pero esto dura {actual}.",
+					"too-short": "Esa canción es demasiado corta. El límite es de {limit}, pero esto dura {actual}."
+				},
+				"this-queue-full-autoclose": "Esta cola está llena. Lo estoy cerrando ahora.",
+				"query-returned-error": "Esa consulta me dio error. ¿Intentar de nuevo tal vez?",
+				"queue-full-autoclose": "La cola está llena. Lo estoy cerrando ahora.",
+				"queue-nearly-full": "La cola está casi llena. ¡Envía mientras puedas!",
+				"song-not-found": "No encuentro esa cancion.",
+				"submission-accepted": "¡Envío aceptado!",
+				"try-longer-song": "Prueba algo un poco más largo",
+				"try-shorter-song": "Prueba algo un poco más corta",
+				"try-supported-platform": "Pruebe con un enlace de una plataforma compatible."
+			}
+		},
+		"test": {
+			"description": "Asegúrese de que todavía sé cómo hablar con los servicios de video.",
+			"name": "prueba",
+			"responses": {
+				"cannot-run-concurrent-invocations": "Espera, alguien acaba de ejecutar este comando...",
+				"preamble-failure": "Uh, algo salió mal. Mejor mira esto:",
+				"preamble-success": "Corrí los números, ¡y parece que todos estamos bien!",
+				"results-header": "Resultados de la prueba por plataforma",
+				"see-on-github": "Consulte la {list} en nuestro GitHub.",
+				"supported-platforms": "lista de plataformas compatibles"
+			}
+		},
+		"version": {
+			"description": "Muestra la versión actual de la base de código del bot.",
+			"name": "versión",
+			"response": "Actualmente estoy ejecutando {version}"
+		}
+	},
+	"common": {
+		"count": {
+			"infinity": "Infinito",
+			"not-a-number": "NaN",
+			"seconds-infinity": "Segundos infinitos",
+			"seconds-nan": "NaN segundos"
+		},
+		"deprecated": "Obsoleto",
+		"dm-failed-disabled": "Intenté enviarte un DM hace un momento, pero parece que tus DM están apagados.",
+		"no-personal-permission": "No tienes permiso para ejecutar ese comando.",
+		"not-here": "No puedes hacer eso aquí.",
+		"queue": {
+			"not-open": "La cola no está abierta.",
+			"not-set-up": "No hay cola configurada."
+		},
+		"reply-from-channel": "Respuesta de {channel}"
+	},
+	"languages": {
+		"de": "Alemán",
+		"en-GB": "Inglés (Reino Unido)",
+		"en-US": "Inglés (EE. UU.)",
+		"es-ES": "Español",
+		"fr": "Francés",
+		"hu": "Húngaro",
+		"pt-BR": "Portugués (Brasil)"
+	},
+	"self": {
+		"unknown-name": "Yo"
+	}
+}

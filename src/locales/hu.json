@@ -1,0 +1,96 @@
+{
+	"meta": {
+		"code": "hu",
+		"name": "Magyar",
+		"nickname": "Magyar"
+	},
+	"commands": {
+		"help": {
+			"description": "Kiír utasításokat a gyakori parancsok használatához.",
+			"name": "segítség"
+		},
+		"ping": {
+			"description": "Pingeli a szerveremet a válaszidő ellenőrzéséhez.",
+			"name": "ping",
+			"responses": {
+				"pong": "Pong! {time} alatt elküldtük a választ. Az API késleltetése {latency}"
+			}
+		},
+		"suggest": {
+			"description": "Beküld egy dalt a sorba.",
+			"name": "suggest",
+			"options": {
+				"url": {
+					"description": "Dal linkje egy támogatott platformról",
+					"name": "url"
+				}
+			},
+			"responses": {
+				"finished": "Siker!",
+				"not-allowed": "Sajnos nem küldhet be dalokat.",
+				"rejections": {
+					"allotment-expended": "Felhasználta mind a(z) {max} lehetőségét.",
+					"cooldown": "Már küldött be dalt az elmúlt {duration}-ban/ben. Várnia kell {remaining}-(e)t, mielőtt újra küldhet.",
+					"queue-channel-submission-not-implemented": "Még nem vagyok képes a várólistából dalkéréseket fogadni.",
+					"too-long": "Ez a dal túl hosszú. A határ {limit}, de ez {actual} hosszú.",
+					"too-short": "Ez a dal túl rövid. A határ {limit}, de ez {actual} hosszú."
+				},
+				"this-queue-full-autoclose": "Ez a sor megtelt. Most bezárom.",
+				"query-returned-error": "Ez a lekérdezés hibát adott. Próbálja újra esetleg?",
+				"queue-full-autoclose": "A sor megtelt. Most bezárom.",
+				"queue-nearly-full": "A sor majdnem megtelt. Küldjön dalokat, amíg még lehet!",
+				"song-not-found": "Nem találom ezt a dalt.",
+				"submission-accepted": "Elfogadva!",
+				"try-longer-song": "Próbáljon egy hosszabb dalt.",
+				"try-shorter-song": "Próbáljon egy rövidebb dalt.",
+				"try-supported-platform": "Próbáljon egy linket egy támogatott platformról."
+			}
+		},
+		"test": {
+			"description": "Ellenőrzi, hogy továbbra is tudok beszélni a videószolgáltatókkal.",
+			"name": "teszt",
+			"responses": {
+				"cannot-run-concurrent-invocations": "Várjon, valaki éppen most futtatta ezt a parancsot...",
+				"preamble-failure": "Valami elromlott. Ez fontos lehet:",
+				"preamble-success": "Osztottam és szoroztam, és úgy tűnik, minden rendben!",
+				"results-header": "Vizsgálat eredményei Platform szerint",
+				"see-on-github": "Tekintse meg a {list} a GitHubon.",
+				"supported-platforms": "támogatott platformok listáját"
+			}
+		},
+		"version": {
+			"description": "Megjeleníti a bot aktuális verzióját.",
+			"name": "verzió",
+			"response": "Jelenleg a {version}-t futtatom"
+		}
+	},
+	"common": {
+		"count": {
+			"infinity": "végtelen",
+			"not-a-number": "NaN",
+			"seconds-infinity": "végtelen másodperc",
+			"seconds-nan": "NaN másodperc"
+		},
+		"deprecated": "Elavult",
+		"dm-failed-disabled": "Próbáltam privát üzenetet küldeni, de úgy tűnik, azok le vannak tiltva önnél.",
+		"no-personal-permission": "Nincs engedélye a parancs futtatásához.",
+		"not-here": "Itt ezt nem teheti meg.",
+		"queue": {
+			"not-open": "A sor nincs nyitva.",
+			"not-set-up": "Nincs sor."
+		},
+		"reply-from-channel": "Válasz a {channel}-ról/ről"
+	},
+	"languages": {
+		"de": "Német",
+		"en-GB": "Angol, Egyesült Királyság",
+		"en-US": "Angol, Amerikai Egyesült Államok",
+		"es-ES": "Spanyol",
+		"fr": "Francia",
+		"hu": "Magyar",
+		"pt-BR": "Portugál, Brazil"
+	},
+	"self": {
+		"unknown-name": "Nekem"
+	}
+}

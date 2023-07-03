@@ -1,0 +1,96 @@
+{
+	"meta": {
+		"code": "pt-BR",
+		"name": "Português do Brasil",
+		"nickname": "Português"
+	},
+	"commands": {
+		"help": {
+			"description": "Imprima instruções para usar os comandos de fila comum.",
+			"name": "ajuda"
+		},
+		"ping": {
+			"description": "Ping meu servidor host para verificar a latência.",
+			"name": "ping",
+			"responses": {
+				"pong": "Pong! Resposta enviada em {time}. A latência da API é de {latency}"
+			}
+		},
+		"suggest": {
+			"description": "Envie uma música para a fila.",
+			"name": "suggest",
+			"options": {
+				"url": {
+					"description": "Um link de música de uma plataforma suportada",
+					"name": "url"
+				}
+			},
+			"responses": {
+				"finished": "Terminei.",
+				"not-allowed": "Você não tem permissão para enviar músicas. Me desculpe.",
+				"rejections": {
+					"allotment-expended": "Você usou todos os {max} envios atribuídos.",
+					"cooldown": "Você já enviou uma música nos últimos {duration}. Você deve esperar {remaining} antes de enviar novamente.",
+					"queue-channel-submission-not-implemented": "A solicitação de músicas no canal de fila ainda não foi implementada.",
+					"too-long": "Essa música é muito longa. O limite é de {limit}, mas este é de {actual}.",
+					"too-short": "Essa música é muito curta. O limite é de {limit}, mas este é de {actual}."
+				},
+				"this-queue-full-autoclose": "Esta fila está cheia. Estou fechando agora.",
+				"query-returned-error": "Essa consulta me deu um erro. Tente novamente talvez?",
+				"queue-full-autoclose": "A fila está cheia. Estou fechando agora.",
+				"queue-nearly-full": "A fila está quase cheia. Envie enquanto ainda pode!",
+				"song-not-found": "Não consigo encontrar essa música.",
+				"submission-accepted": "Submissão aceita!",
+				"try-longer-song": "Tente algo um pouco mais longo",
+				"try-shorter-song": "Tente algo um pouco mais curto",
+				"try-supported-platform": "Experimente um link de uma plataforma suportada."
+			}
+		},
+		"test": {
+			"description": "Certifique-se de que ainda sei falar com os serviços de vídeo.",
+			"name": "teste",
+			"responses": {
+				"cannot-run-concurrent-invocations": "Espere, alguém acabou de executar este comando...",
+				"preamble-failure": "Ué, algo deu errado. Melhor olhar para isso:",
+				"preamble-success": "Eu corri os números, e parece que estamos todos bem!",
+				"results-header": "Resultado dos Testes por Plataforma",
+				"see-on-github": "Consulte a {list} em nosso GitHub.",
+				"supported-platforms": "lista de plataformas compatíveis"
+			}
+		},
+		"version": {
+			"description": "Exiba a versão atual da base de código do bot.",
+			"name": "versão",
+			"response": "Atualmente estou executando a {version}"
+		}
+	},
+	"common": {
+		"count": {
+			"infinity": "Infinidade",
+			"not-a-number": "NaN",
+			"seconds-infinity": "Segundos infinitos",
+			"seconds-nan": "NaN segundos"
+		},
+		"deprecated": "Obsoleto",
+		"dm-failed-disabled": "Tentei enviar uma DM para você agora, mas parece que suas DMs estão desativadas.",
+		"no-personal-permission": "Você não tem permissão para executar este comando.",
+		"not-here": "Você não pode fazer isso aqui.",
+		"queue": {
+			"not-open": "A fila não está aberta.",
+			"not-set-up": "Nenhuma fila está configurada."
+		},
+		"reply-from-channel": "Resposta do {channel}"
+	},
+	"languages": {
+		"de": "Alemão",
+		"en-GB": "Inglês, Reino Unido",
+		"en-US": "Inglês, EUA",
+		"es-ES": "Espanhol",
+		"fr": "Francês",
+		"hu": "Húngaro",
+		"pt-BR": "Português, Brasil"
+	},
+	"self": {
+		"unknown-name": "Eu"
+	}
+}

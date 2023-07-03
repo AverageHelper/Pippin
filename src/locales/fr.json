@@ -1,0 +1,96 @@
+{
+	"meta": {
+		"code": "fr",
+		"name": "Français",
+		"nickname": "Français"
+	},
+	"commands": {
+		"help": {
+			"description": "Imprime les instructions d'utilisation des commandes de la file d'attente courante.",
+			"name": "aide"
+		},
+		"ping": {
+			"description": "Ping mon serveur hôte pour vérifier la latence.",
+			"name": "ping",
+			"responses": {
+				"pong": "Pong! Réponse envoyée en {time}. La latence de l'API est de {latency}"
+			}
+		},
+		"suggest": {
+			"description": "Soumets une chanson à la file d'attente.",
+			"name": "suggest",
+			"options": {
+				"url": {
+					"description": "Un lien d'une chanson à partir d'une plate-forme prise en charge",
+					"name": "url"
+				}
+			},
+			"responses": {
+				"finished": "Fait.",
+				"not-allowed": "Vous n'êtes pas autorisé à soumettre des chansons. Je suis désolé.",
+				"rejections": {
+					"allotment-expended": "Vous avez utilisé les {max} soumissions qui vous était allouées.",
+					"cooldown": "Vous avez déjà soumis une chanson dans les dernières {duration}. Vous devez attendre {remaining} avant de soumettre à nouveau.",
+					"queue-channel-submission-not-implemented": "La demande de chansons dans le canal de file d'attente n'a pas encore été implémentée.",
+					"too-long": "Cette chanson est trop longue. La limite est de {limit}, mais celle-ci dure {actual}.",
+					"too-short": "Cette chanson est trop courte. La limite est de {limit}, mais celle-ci dure {actual}."
+				},
+				"this-queue-full-autoclose": "Cette file d'attente est pleine. Je la ferme maintenant.",
+				"query-returned-error": "Cette requête m'a donné une erreur. Réessayez peut-être?",
+				"queue-full-autoclose": "La file d'attente est pleine. Je la ferme maintenant.",
+				"queue-nearly-full": "La file d'attente est presque pleine. Soumettez pendant que vous le pouvez encore!",
+				"song-not-found": "Je ne trouve pas cette chanson.",
+				"submission-accepted": "Soumission acceptée!",
+				"try-longer-song": "Essayez quelque chose d'un peu plus long",
+				"try-shorter-song": "Essayez quelque chose d'un peu plus court",
+				"try-supported-platform": "Essayez un lien d'une plate-forme prise en charge."
+			}
+		},
+		"test": {
+			"description": "Assure que je sais toujours comment parler aux services vidéo.",
+			"name": "test",
+			"responses": {
+				"cannot-run-concurrent-invocations": "Attendez, quelqu'un vient d'exécuter cette commande...",
+				"preamble-failure": "Euh, quelque chose s'est mal passé. Le mieux est de regarder ceci:",
+				"preamble-success": "J'ai fait les calculs, et on dirait que tout va bien!",
+				"results-header": "Résultats des tests par plate-forme",
+				"see-on-github": "Consultez la {list} sur notre GitHub.",
+				"supported-platforms": "liste des plates-formes prise en charge"
+			}
+		},
+		"version": {
+			"description": "Affiche la version actuelle de la base du code du bot.",
+			"name": "version",
+			"response": "J'utilise actuellement la {version}"
+		}
+	},
+	"common": {
+		"count": {
+			"infinity": "Infini",
+			"not-a-number": "NaN",
+			"seconds-infinity": "Secondes infinies",
+			"seconds-nan": "NaN secondes"
+		},
+		"deprecated": "Obsolète",
+		"dm-failed-disabled": "J'ai essayé de vous envoyer un DM tout à l'heure, mais il semble que vos DM soient désactivés.",
+		"no-personal-permission": "Vous n'avez pas la permission d'exécuter cette commande.",
+		"not-here": "Vous ne pouvez pas faire ça ici.",
+		"queue": {
+			"not-open": "La file d'attente n'est pas ouverte.",
+			"not-set-up": "Aucune file d'attente n'est configurée."
+		},
+		"reply-from-channel": "Réponse du {channel}"
+	},
+	"languages": {
+		"de": "Allemand",
+		"en-GB": "Anglais, Royaume-Uni",
+		"en-US": "Anglais, États-Unis",
+		"es-ES": "Espagnol",
+		"fr": "Français",
+		"hu": "Hongrois",
+		"pt-BR": "Portugais, Brésilien"
+	},
+	"self": {
+		"unknown-name": "Moi"
+	}
+}
