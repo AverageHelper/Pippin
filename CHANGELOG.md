@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.0] - 2023-07-02
 ### Added
-- Initial commit
+- Initial working commit (technically the second commit, not the first, lol)
 
 [Unreleased]: https://github.com/AverageHelper/Pippin/compare/v0.0.0...HEAD
 [0.0.0]: https://github.com/AverageHelper/Pippin/releases/tag/v0.0.0
