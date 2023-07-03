@@ -39,7 +39,14 @@ export const ready = onEvent("ready", {
 
 		// Sanity check for commands
 		logger.info("Verifying command deployments...");
-		await verifyCommandDeployments(client, logger);
+		try {
+			await verifyCommandDeployments(client, logger);
+		} catch (error) {
+			// Logging directly to console, because `winston` might not flush properly before we exit
+			// eslint-disable-next-line no-console
+			console.error(error);
+			process.exit(1); // Getting around our own error handler
+		}
 
 		// Set user activity
 		logger.info("Setting user activity");

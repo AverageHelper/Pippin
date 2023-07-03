@@ -4,7 +4,6 @@ import type { Response, ResponseContext } from "./helpers/randomStrings.js";
 import { getEnv } from "./helpers/environment.js";
 import { getUserIdFromMention } from "./helpers/getUserIdFromMention.js";
 import { logUser } from "./helpers/logUser.js";
-import { SLASH_COMMAND_INTENT_PREFIX } from "./constants/database.js";
 import { timeoutSeconds } from "./helpers/timeoutSeconds.js";
 import { isNonEmptyArray } from "./helpers/guards.js";
 import { reply as _reply } from "./actions/messages/index.js";
@@ -15,6 +14,8 @@ import {
 	randomQuestion,
 	unwrappingWith
 } from "./helpers/randomStrings.js";
+
+const SLASH_COMMAND_INTENT_PREFIX = "/";
 
 /**
  * The method that was used to invoke a command via a normal Discord message.

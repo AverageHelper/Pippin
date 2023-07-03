@@ -1,9 +1,21 @@
-import type { Client, Guild } from "discord.js";
+import type { ApplicationCommand, Client, Guild } from "discord.js";
+import type { GlobalCommand } from "../commands/index.js";
 import type { Logger } from "../logger.js";
 import { allCommands } from "../commands/index.js";
 
+const _deployedGlobalCommands = new Map<string, ApplicationCommand>();
+
+export function deployedGlobalCommand(command: GlobalCommand): ApplicationCommand {
+	// Since `verifyCommandDeployments` is called before any commands are executed, and
+	// throws if the command list differs, we can assume that all commands are represented.
+	const deployedCommand = _deployedGlobalCommands.get(command.name);
+	if (!deployedCommand) throw new TypeError(`No command found with name '${command.name}'`);
+
+	return deployedCommand;
+}
+
 /**
- * Verify that the deployed command list is up-to-date, and yell in the console if it's not.
+ * Verifies that the deployed command list is up-to-date, and throws if it's not.
  *
  * @param client The Discord.js client whose commands to validate.
  * @param logger The place to send error messages
@@ -19,15 +31,13 @@ export async function verifyCommandDeployments(
 		const actual = globalDiff.actual;
 		switch (issue) {
 			case "content":
-				logger.warn(
+				throw new TypeError(
 					`The deployed commands differ from the expected command list: Expected a command named '${expected}', but found '${actual}'. Please redeploy.`
 				);
-				break;
 			case "length":
-				logger.warn(
+				throw new TypeError(
 					`The deployed commands differ from the expected command list: Expected ${expected} global command(s), but Discord returned ${actual}. Please redeploy.`
 				);
-				break;
 			default:
 				/* istanbul ignore next */
 				assertUnreachable(issue);
@@ -42,15 +52,13 @@ export async function verifyCommandDeployments(
 		const guildId = guildedDiff.guild.id;
 		switch (issue) {
 			case "content":
-				logger.warn(
+				throw new TypeError(
 					`The deployed commands in guild '${guildId}' differ from the expected command list: Expected a command named '${expected}', but found '${actual}'. Please redeploy.`
 				);
-				break;
 			case "length":
-				logger.warn(
+				throw new TypeError(
 					`The deployed commands in guild '${guildId}' differ from the expected command list: Expected ${expected} command(s), but Discord returned ${actual}. Please redeploy.`
 				);
-				break;
 			default:
 				/* istanbul ignore next */
 				assertUnreachable(issue);
@@ -95,7 +103,12 @@ async function diffGlobalCommandDeployments(client: Client<true>): Promise<Diff 
 		.map(c => c.name)
 		.sort(sortAlphabetically);
 
-	const actualCommandNames = (await client.application.commands.fetch())
+	const actualCommands = await client.application.commands.fetch();
+	for (const [, cmd] of actualCommands) {
+		_deployedGlobalCommands.set(cmd.name, cmd);
+	}
+
+	const actualCommandNames = actualCommands //
 		.map(c => c.name)
 		.sort(sortAlphabetically);
 

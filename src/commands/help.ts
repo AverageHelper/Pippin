@@ -1,7 +1,16 @@
 import type { GlobalCommand } from "./Command.js";
 import { localizations } from "../i18n.js";
-import { SLASH_COMMAND_INTENT_PREFIX } from "../constants/database.js";
 import { composed, createPartialString, push, pushNewLine } from "../helpers/composeStrings.js";
+import { deployedGlobalCommand } from "../actions/verifyCommandDeployments.js";
+
+function commandMention<N extends string, ID extends string>(name: N, id: ID): `</${N}:${ID}>` {
+	return `</${name}:${id}>`;
+}
+
+function mentionForCommand(command: GlobalCommand): `</${string}:${string}>` {
+	const deployedCommand = deployedGlobalCommand(command);
+	return commandMention(command.name, deployedCommand.id);
+}
 
 // TODO: i18n
 export const help: GlobalCommand = {
@@ -18,17 +27,15 @@ export const help: GlobalCommand = {
 			: suggest.name;
 
 		// Print the standard help
-		const COMMAND_PREFIX = SLASH_COMMAND_INTENT_PREFIX; // TODO: Link the commands directly
+		const commandName = mentionForCommand(suggest);
 		const msg = createPartialString();
 
 		const exampleQuery = "https://youtu.be/dQw4w9WgXcQ"; // :P
 
-		push(
-			`To submit a movie, find a link to it on TMDB, then, type \`${COMMAND_PREFIX}${suggestCommandName} <link>\`.`,
-			msg
-		);
+		push(`To submit a movie, find a link to it on TMDB, then submit it with ${commandName}.`, msg);
 		pushNewLine(msg);
-		push(`For example: \`${COMMAND_PREFIX}${suggestCommandName} ${exampleQuery}\``, msg);
+		push(`For example: \`/${suggestCommandName} url:${exampleQuery}\``, msg);
+		pushNewLine(msg);
 		pushNewLine(msg);
 		push("I will respond with a text verification indicating your movie has joined the list!", msg);
 
