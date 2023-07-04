@@ -6,7 +6,6 @@ import type {
 } from "discord.js";
 import type { Command, GlobalCommand, GuildedCommand } from "../commands/index.js";
 import type { Logger } from "../logger.js";
-import type { NonEmptyArray } from "../@types/global.js";
 import { ApplicationCommandType } from "discord.js";
 import { allCommands } from "../commands/index.js";
 import { isNonEmptyArray } from "../helpers/guards.js";

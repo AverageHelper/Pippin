@@ -44,6 +44,7 @@ export async function verifyCommandDeployments(
 		}
 	}
 
+	logger.debug("Done with global commands. Moving on to guild commands...");
 	const guildedDiff = await diffGuildCommandDeployments(client, logger);
 	if (guildedDiff) {
 		const issue = guildedDiff.issue;

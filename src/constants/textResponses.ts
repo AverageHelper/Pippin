@@ -418,7 +418,7 @@ export const phrases: ResponseRepository = [
 
 	...philosophy,
 	...copypasta
-]; // 243 of these
+]; // 244 of these
 logger.silly(`I have ${phrases.length} random things to say ^^`);
 
 /**

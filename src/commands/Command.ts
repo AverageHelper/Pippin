@@ -7,7 +7,6 @@ import type {
 	PermissionResolvable
 } from "discord.js";
 import type { CommandContext, GuildedCommandContext } from "./CommandContext.js";
-import type { NonEmptyArray } from "../@types/global.js";
 
 export * from "./CommandContext.js";
 

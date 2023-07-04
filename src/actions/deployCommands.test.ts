@@ -1,6 +1,5 @@
 import type { Client } from "discord.js";
 import type { Command } from "../commands/index.js";
-import type { NonEmptyArray } from "../@types/global.js";
 import { ApplicationCommandOptionType } from "discord.js";
 import { useTestLogger } from "../../tests/testUtils/logger.js";
 

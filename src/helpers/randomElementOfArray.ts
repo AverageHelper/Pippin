@@ -1,4 +1,3 @@
-import type { NonEmptyArray } from "../@types/global.js";
 import { randomInt } from "./randomInt.js";
 
 /**

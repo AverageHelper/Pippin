@@ -1,5 +1,4 @@
 import type { Command } from "./Command.js";
-import type { NonEmptyArray } from "../@types/global.js";
 import { EmbedBuilder } from "discord.js";
 import { getMovieDbEntry } from "../actions/network/getMovieDbEntry.js";
 import { localizations, t, ti } from "../i18n.js";

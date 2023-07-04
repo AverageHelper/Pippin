@@ -1,5 +1,4 @@
 import type { Message, MessageEditOptions, PartialMessage } from "discord.js";
-import type { NonEmptyArray } from "../../@types/global.js";
 import { richErrorMessage } from "../../helpers/richErrorMessage.js";
 import { useLogger } from "../../logger.js";
 
