@@ -1,14 +1,15 @@
 import type { MovieSuggestion, QueueConfig } from "./database/schemas.js";
+import type { ReadonlyDeep } from "type-fest";
 import type { Snowflake } from "discord.js";
-import { useRepository } from "./database/useDatabase.js";
+import {
+	getQueueConfig,
+	getSuggestionQueue,
+	saveQueueConfig,
+	upsertEntryInQueue
+} from "./database/index.js";
 
-// TODO: This should use the spreadsheet
-
-export type QueueEntry = Readonly<MovieSuggestion>;
-export type UnsentQueueEntry = Readonly<MovieSuggestion>;
-
-// TODO: Break these into separate files where appropriate
-// TODO: Only retain user-provided data for at most 90 days
+export type QueueEntry = MovieSuggestion;
+export type UnsentQueueEntry = MovieSuggestion;
 
 // ** Queue Config **
 
@@ -21,24 +22,7 @@ export type { QueueConfig };
  * or a default one if none has been set yet.
  */
 export async function getStoredQueueConfig(): Promise<QueueConfig> {
-	const extantConfig = await useRepository("config", configs => {
-		// configs.findUnique({
-		// 	where: { channelId: queueChannel.id },
-		// 	include: {
-		// 		blacklistedUsers: {
-		// 			include: { user: true }
-		// 		}
-		// 	}
-		// });
-		return {
-			blacklistedUsers: [],
-			submissionMaxQuantity: null
-		} satisfies QueueConfig;
-	});
-	return {
-		blacklistedUsers: extantConfig?.blacklistedUsers ?? [],
-		submissionMaxQuantity: extantConfig?.submissionMaxQuantity ?? null
-	};
+	return await getQueueConfig();
 }
 
 // ** Write Media Entries **
@@ -52,20 +36,11 @@ export async function getStoredQueueConfig(): Promise<QueueConfig> {
  *
  * @returns a promise that resolves with the new queue entry
  */
-export async function pushEntryToQueue(newEntry: UnsentQueueEntry): Promise<QueueEntry> {
+export async function pushEntryToQueue(
+	newEntry: ReadonlyDeep<UnsentQueueEntry>
+): Promise<QueueEntry> {
 	// Add the entry, or update the one we have
-	return await useRepository("suggestions", suggestions => {
-		// TODO: Upsert the entry
-		return { ...newEntry };
-		// suggestions.upsert({
-		// 	where: {
-		// 		queueMessageId: entry.queueMessageId
-		// 	},
-		// 	update: newEntry,
-		// 	create: newEntry,
-		// 	include: { haveCalledNowPlaying: true }
-		// });
-	});
+	return await upsertEntryInQueue(newEntry);
 }
 
 // ** Read Media Entries **
@@ -77,17 +52,7 @@ export async function pushEntryToQueue(newEntry: UnsentQueueEntry): Promise<Queu
  * in the order in which they were added.
  */
 export async function getAllStoredEntries(): Promise<Array<QueueEntry>> {
-	return await useRepository("suggestions", suggestions => {
-		return [];
-		// suggestions.findMany({
-		// 	where: {
-		// 		channelId: queueChannel.id,
-		// 		guildId: queueChannel.guild.id
-		// 	},
-		// 	orderBy: { sentAt: "asc" },
-		// 	include: { haveCalledNowPlaying: true }
-		// });
-	});
+	return await getSuggestionQueue();
 }
 
 /**
@@ -96,15 +61,8 @@ export async function getAllStoredEntries(): Promise<Array<QueueEntry>> {
  * @returns a promise that resolves with the number of entries in the queue.
  */
 export async function countAllStoredEntries(): Promise<number> {
-	return await useRepository("suggestions", async suggestions => {
-		return 0;
-		// return suggestions.count({
-		// 	where: {
-		// 		channelId: queueChannel.id,
-		// 		guildId: queueChannel.guildId
-		// 	}
-		// });
-	});
+	const allEntries = await getAllStoredEntries();
+	return allEntries.length;
 }
 
 /**
@@ -115,18 +73,8 @@ export async function countAllStoredEntries(): Promise<number> {
  * in the order in which they were added.
  */
 export async function getAllStoredEntriesFromSender(senderId: string): Promise<Array<QueueEntry>> {
-	return await useRepository("suggestions", suggestions => {
-		return [];
-		// suggestions.findMany({
-		// 	where: {
-		// 		channelId: queueChannel.id,
-		// 		guildId: queueChannel.guild.id,
-		// 		senderId
-		// 	},
-		// 	orderBy: { sentAt: "asc" },
-		// 	include: { haveCalledNowPlaying: true }
-		// });
-	});
+	const allEntries = await getAllStoredEntries();
+	return allEntries.filter(entry => entry.sentBy === senderId);
 }
 
 /**
@@ -139,16 +87,8 @@ export async function getAllStoredEntriesFromSender(senderId: string): Promise<A
  * the queue associated with the user.
  */
 export async function countAllStoredEntriesFromSender(senderId: string): Promise<number> {
-	return await useRepository("suggestions", suggestions => {
-		return 0;
-		// suggestions.count({
-		// 	where: {
-		// 		channelId: queueChannel.id,
-		// 		guildId: queueChannel.guild.id,
-		// 		senderId
-		// 	}
-		// });
-	});
+	const allEntries = await getAllStoredEntriesFromSender(senderId);
+	return allEntries.length;
 }
 
 // ** User Blacklist **
@@ -160,38 +100,12 @@ export async function countAllStoredEntriesFromSender(senderId: string): Promise
  * @param userId The ID of the user to blacklist.
  */
 export async function saveUserToStoredBlacklist(userId: Snowflake): Promise<void> {
-	// const blacklistedUsers = {
-	// 	connectOrCreate: {
-	// 		where: {
-	// 			queueConfigsChannelId_userId: {
-	// 				queueConfigsChannelId: queueChannel.id,
-	// 				userId
-	// 			}
-	// 		},
-	// 		create: {
-	// 			user: {
-	// 				connectOrCreate: {
-	// 					where: { id: userId },
-	// 					create: { id: userId }
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// };
+	const config = await getStoredQueueConfig();
+	const blacklist = new Set(config.blacklistedUsers);
+	blacklist.add(userId);
+	config.blacklistedUsers = Array.from(blacklist);
 
-	await useRepository("config", configs => {
-		// TODO: Inser the user into the blacklist array
-		// configs.upsert({
-		// 	// If a config is found, update it:
-		// 	where: { channelId: queueChannel.id },
-		// 	update: { blacklistedUsers },
-		// 	// If the queue config isn't found, create it:
-		// 	create: {
-		// 		channelId: queueChannel.id,
-		// 		blacklistedUsers
-		// 	}
-		// });
-	});
+	await saveQueueConfig(config);
 }
 
 /**
@@ -200,11 +114,10 @@ export async function saveUserToStoredBlacklist(userId: Snowflake): Promise<void
  * @param userId The ID of the user to whitelist.
  */
 export async function removeUserFromStoredBlacklist(userId: Snowflake): Promise<void> {
-	await useRepository("config", async config => {
-		// TODO: Remove the user from the blacklist array
-		// Delete the relation, easy as that:
-		// await config.delete({
-		// 	where: { queueConfigsChannelId_userId: { queueConfigsChannelId: queueChannel.id, userId } }
-		// });
-	});
+	const config = await getStoredQueueConfig();
+	const blacklist = new Set(config.blacklistedUsers);
+	blacklist.delete(userId);
+	config.blacklistedUsers = Array.from(blacklist);
+
+	await saveQueueConfig(config);
 }

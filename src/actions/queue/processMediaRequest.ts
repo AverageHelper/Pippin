@@ -131,7 +131,7 @@ export async function processMediaRequest(request: MediaRequest): Promise<void> 
 		]);
 
 		// ** If the user is blacklisted, reject!
-		if (config.blacklistedUsers?.some(userId => userId === senderId) === true) {
+		if (config.blacklistedUsers.some(userId => userId === senderId)) {
 			logger.verbose(
 				`${config.blacklistedUsers.length} users on the blacklist. User ${logUser(
 					sender

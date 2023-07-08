@@ -21,7 +21,7 @@ export function movieSuggestionFromRaw(value: unknown): MovieSuggestion {
 // MARK: - QueueConfig
 
 export const queueConfig = type({
-	blacklistedUsers: nullable(array(nonempty(string()))),
+	blacklistedUsers: array(nonempty(string())),
 	submissionMaxQuantity: nullable(number())
 });
 
