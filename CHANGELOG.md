@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `/help` now prints a clickable link to the `/suggest` command.
+- Updated Node engine requirement to v18.
 
 ## [0.0.0] - 2023-07-02
 ### Added

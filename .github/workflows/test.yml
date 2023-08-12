@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.10.x
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.10.x
+          node-version: 18.x
       - run: npm ci
       - run: npm run build
       - name: Run npm run test:src
@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.x
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
@@ -46,10 +46,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.10.x (earliest version supported)
+      - name: Use Node.js 18.17.x (earliest version supported)
         uses: actions/setup-node@v3
         with:
-          node-version: 16.10.x
+          node-version: 18.17.x
       - run: npm ci
       - run: npm run build
       - run: npm run test:e2e

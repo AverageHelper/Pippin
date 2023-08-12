@@ -46,8 +46,7 @@ export default defineConfig({
 		// Circular
 		"undici",
 		"winston-transport",
-		"winston",
-		"yargs"
+		"winston"
 	],
 	input: "src/main.ts",
 	output: {

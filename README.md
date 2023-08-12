@@ -14,14 +14,14 @@ It's only me for now. Most of this code was copied from [Gamgee](https://github.
 
 ## Prerequisites
 
-This project requires [NodeJS](https://nodejs.org/) (version 16.10 or later), [NPM](https://npmjs.org/), and a [Discord bot account token](https://www.howtogeek.com/364225/how-to-make-your-own-discord-bot/).
+This project requires [NodeJS](https://nodejs.org/) (version 18.17 or later), [NPM](https://npmjs.org/), and a [Discord bot account token](https://www.howtogeek.com/364225/how-to-make-your-own-discord-bot/).
 To make sure you have them available on your machine,
 try running the following command:
 
 ```sh
 $ npm -v && node -v
-7.20.3
-v16.15.1
+9.6.7
+v18.17.1
 ```
 
 ## Clone the Repo
