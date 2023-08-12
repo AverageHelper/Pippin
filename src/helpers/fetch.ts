@@ -1,8 +1,4 @@
 import { SECONDS_IN_MINUTE } from "../constants/time";
-import crossFetch from "cross-fetch"; // Move this to a dynamic import once we depend on Node 18
-
-// TODO: only fall back on `cross-fetch` when built-in `fetch` is unavailable.
-export const fetch = crossFetch;
 
 /**
  * Runs a `fetch` request using the given request. The request is aborted
