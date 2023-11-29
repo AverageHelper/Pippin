@@ -218,6 +218,12 @@ export const phrases: ResponseRepository = [
 	"Zinda, his face black, his eyes red",
 	// TODO: Add more from https://memory-alpha.fandom.com/wiki/Tamarian_language, once there is more to balance these out
 
+	// Time
+	"Did you hear Unix clocks ticked over to 17-something? Feels like ages ago, but it's, what, <t:1700000000:R> now?",
+	"Did you hear we just hit a new Unix time epoch? Yeah, pretty recently too, only <t:1700000000:R> or something",
+	"Remember that new Unix time epoch? I know, that's _so_ <t:1700000000:R>",
+	"Someone just told me we hit a new Unix time epoch. I'm like, that's _so_ <t:1700000000:R>",
+
 	// Wonka
 	"A little nonsense now and then is relished by the wisest men.",
 	"If the Good Lord had intended us to walk, he wouldn't have invented roller skates!",
@@ -244,6 +250,7 @@ export const phrases: ResponseRepository = [
 	// Other
 	"Another good song!",
 	"Are we there yet?",
+	"Are you for Music such as Untitled 1 and Music and more Music by Music + Music (with Eminem) and the best one of all time Song?",
 	"Are you sure you typed your message correctly? All I see is a bunch of words",
 	"Based",
 	"Based on what?",
@@ -292,7 +299,8 @@ export const phrases: ResponseRepository = [
 	"haha automated message go brrrrrrr",
 	"\\*happy robot noises\\*",
 	"Have you ever tried speaking only in memes? I once knew a guy who could do it, but they were all inside jokes so I didn't have a clue what he was talking about!",
-	({ otherUser }) => `Hey, I know you! You're ${otherUser.username}, right?`,
+	({ otherMember: m, otherUser: u }) =>
+		`Hey, I know you! You're ${m?.nickname ?? u.username}, right?`,
 	({ me }) => `Hey all! ${firstWord(me)} here!`,
 	"Hm? I'm just vibing",
 	"I actually understand everything you're saying. It's just fun to troll you with nonsense replies :stuck_out_tongue_winking_eye:",
@@ -305,7 +313,7 @@ export const phrases: ResponseRepository = [
 	"I don't like this can we change the topic plz ty",
 	"I don't like your tone.",
 	"I feel unexplained joys and sorrows, but alas I am synthetic.",
-	({ otherUser: u }) => `I agree, ${u.username}. Wise words`,
+	({ otherMember: m, otherUser: u }) => `I agree, ${m?.nickname ?? u.username}. Wise words`,
 	"I have a dream...",
 	["I have this amazing story I wanna share. Here it is:", "The.", "I hope you liked it!"],
 	"I just wasted three seconds of your life.",
@@ -384,6 +392,7 @@ export const phrases: ResponseRepository = [
 	"They told me not to keep saying random stuff. BUT I DIDN'T LISTEN!",
 	"This is just a random phrase. Feel free to add to another.",
 	"(This message will be in a separate message)",
+	"This message was written in 4K Ultra HD:tm:",
 	"This reminds me of the time when I tried to drink some water to maybe act like other people, and I wish I never did.",
 	"\\*thoughtful phrase\\*",
 	() => `To talk to a customer, please press ${code(randomInt(9))}`,
@@ -418,7 +427,7 @@ export const phrases: ResponseRepository = [
 
 	...philosophy,
 	...copypasta
-]; // 244 of these
+]; // 250 of these
 logger.silly(`I have ${phrases.length} random things to say ^^`);
 
 /**
