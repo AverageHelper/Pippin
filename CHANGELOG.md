@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- The bot will now crash if the commands have not been deployed.
+- The bot will now crash with a warning if the commands have not been deployed.
 
 ### Changed
+- Moved to Codeberg.
 - `/help` now prints a clickable link to the `/suggest` command.
 - Updated Node engine requirement to v18.
 
@@ -16,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial working commit (technically the second commit, not the first, lol)
 
-[Unreleased]: https://github.com/AverageHelper/Pippin/compare/v0.0.0...HEAD
-[0.0.0]: https://github.com/AverageHelper/Pippin/releases/tag/v0.0.0
+[Unreleased]: https://codeberg.org/AverageHelper/Pippin/compare/v0.0.0...HEAD
+[0.0.0]: https://codeberg.org/AverageHelper/Pippin/releases/tag/v0.0.0

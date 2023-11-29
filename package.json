@@ -34,14 +34,14 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/AverageHelper/Pippin.git"
+		"url": "git+https://codeberg.org/AverageHelper/Pippin.git"
 	},
 	"author": "AverageHelper",
 	"license": "LICENSE",
 	"bugs": {
-		"url": "https://github.com/AverageHelper/Pippin/issues"
+		"url": "https://codeberg.org/AverageHelper/Pippin/issues"
 	},
-	"homepage": "https://github.com/AverageHelper/Pippin#readme",
+	"homepage": "https://codeberg.org/AverageHelper/Pippin#readme",
 	"dependencies": {
 		"@averagehelper/job-queue": "1.0.1",
 		"discord.js": "14.9.0",

@@ -28,7 +28,7 @@ v18.17.1
 
 ```sh
 $ cd path/to/parent
-$ git clone https://github.com/AverageHelper/Pippin.git
+$ git clone https://codeberg.org/AverageHelper/Pippin.git
 $ cd Pippin
 ```
 
@@ -133,7 +133,7 @@ Pippin generates some files as needed. This is normal, and you should not bother
 
 We only support [TheMovieDB](https://www.themoviedb.org/) for now, because their API is reasonable.
 
-If you'd like us to support another platform, please [submit an issue](https://github.com/AverageHelper/Pippin/issues/new?labels=enhancement&template=feature_request.md)!
+If you'd like us to support another platform, please [submit an issue](https://codeberg.org/AverageHelper/Pippin/issues/new?template=.github%2fISSUE_TEMPLATE%2ffeature_request.md)!
 
 ## Commands
 
@@ -157,11 +157,11 @@ Runs test queries against each of our [supported platforms](#supported-music-pla
 
 ### `version`
 
-Display's the current version of Pippin Core. (see [package.json](https://github.com/AverageHelper/Pippin/blob/main/package.json#L3))
+Display's the current version of Pippin Core. (see [package.json](https://codeberg.org/AverageHelper/Pippin/src/branch/main/package.json#L3))
 
 ## Contributing
 
-This project is entirely open source. Do with it what you will. If you're willing to help me improve this project, consider [filing an issue](https://github.com/AverageHelper/Pippin/issues/new/choose).
+This project is entirely open source. Do with it what you will. If you're willing to help me improve this project, consider [filing an issue](https://codeberg.org/AverageHelper/Pippin/issues/new/choose).
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for ways to contribute.
 

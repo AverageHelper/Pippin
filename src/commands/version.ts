@@ -21,8 +21,8 @@ export const version: Command = {
 
 		const systemName = "Pippin Core";
 
-		const repo = "https://github.com/AverageHelper/Pippin";
-		const changelog = `${repo}/blob/main/CHANGELOG.md`; // TODO: Select the current version's heading
+		const repo = "https://codeberg.org/AverageHelper/Pippin";
+		const changelog = `${repo}/src/branch/main/CHANGELOG.md`; // TODO: Select the current version's heading
 		// Discord lets bots link stuff in Markdown syntax, but it'll also embed by default.
 		// We use angled brackets (`<` and `>`) to prevent the embed.
 		return await reply(

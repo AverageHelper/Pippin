@@ -69,7 +69,7 @@ function setActivity(client: Client<true>): ClientPresence {
 	// multiline string on the bot's user profile.
 	return client.user.setActivity({
 		type: ActivityType.Playing,
-		name: "Source: github.com/AverageHelper/Pippin",
-		url: "https://github.com/AverageHelper/Pippin"
+		name: "Source: codeberg.org/AverageHelper/Pippin",
+		url: "https://codeberg.org/AverageHelper/Pippin"
 	});
 }

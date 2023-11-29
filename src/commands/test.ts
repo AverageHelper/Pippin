@@ -88,14 +88,14 @@ export const test: Command = {
 
 			// TODO: We use this URL in several places. Move it into a central place for us to import and use around
 			const supportedPlatformsList =
-				"https://github.com/AverageHelper/Pippin#supported-music-platforms";
+				"https://codeberg.org/AverageHelper/Pippin#supported-media-platforms";
 			const list = `[${t(
 				"commands.test.responses.supported-platforms",
 				userLocale
 			)}](${supportedPlatformsList})`;
 
 			embed.setTitle(t("commands.test.responses.results-header", userLocale));
-			embed.setDescription(ti("commands.test.responses.see-on-github", { list }, userLocale));
+			embed.setDescription(ti("commands.test.responses.see-on-codeberg", { list }, userLocale));
 			results.forEach(result => addResult(result, embed));
 
 			const anyFailures = results.some(result => result.error !== undefined);
