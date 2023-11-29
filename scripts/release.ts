@@ -1,11 +1,15 @@
-import { assert, literal, string, type } from "superstruct";
-import { join } from "node:path";
+#!/usr/bin/env ts-node
+
+import { assert, enums, string, type } from "superstruct";
 import { parser as changelogParser } from "keep-a-changelog";
-import { parse as parseSemVer } from "semver";
 import { readFileSync, writeFileSync } from "node:fs";
+import { URL } from "node:url";
+import semver from "semver";
 
 // Fixes the changelog's footer links and bumps the `version` in [package.json](/package.json) and [package-lock.json](/package-lock.json).
 // This script may be run repeatedly on the same project.
+
+const { parse: parseSemVer } = semver;
 
 function quote(str: string | undefined): string | undefined {
 	if (str === undefined) return str;
@@ -15,9 +19,9 @@ function quote(str: string | undefined): string | undefined {
 console.info("** release.ts **");
 
 // Load the changelog
-const changelogPath = join(__dirname, "../CHANGELOG.md");
-const packageJsonPath = join(__dirname, "../package.json");
-const packageLockJsonPath = join(__dirname, "../package-lock.json");
+const changelogPath = new URL("../CHANGELOG.md", import.meta.url).pathname;
+const packageJsonPath = new URL("../package.json", import.meta.url).pathname;
+const packageLockJsonPath = new URL("../package-lock.json", import.meta.url).pathname;
 console.info("Loading changelog from", quote(changelogPath));
 
 const rawChangelog = readFileSync(changelogPath, "utf-8");
@@ -26,25 +30,23 @@ const changelog = changelogParser(rawChangelog);
 const releases = changelog.releases;
 
 // Get current versioned release
-const thisReleaseIdx = releases.findIndex(release => release.date && release.version);
+const thisReleaseIdx = releases.findIndex(release => release.date && release.parsedVersion);
 const thisRelease = releases[thisReleaseIdx];
-if (!thisRelease?.version) throw new TypeError("No versioned release was found.");
+if (!thisRelease?.parsedVersion || !thisRelease.version)
+	throw new TypeError("No versioned release was found.");
 
 // Handy info
-console.info("latest release:", thisRelease.version?.toString());
+console.info("latest release:", thisRelease.version);
 
 const prevRelease = releases[thisReleaseIdx + 1];
-console.info("previous release:", prevRelease?.version?.toString());
+console.info("previous release:", prevRelease?.version);
 
-// Fix the changelog's format (new compare links, etc.)
+// Fix the changelog's format (new compare links, etc.), and print the diff of our changes
 console.info("\n** Spec compliance **");
 
 const newChangelog = changelog.toString();
 writeFileSync(changelogPath, newChangelog);
 
-// `git-diff` against the current CHANGELOG.md eats node_modules. Not sure why.
-// Until that's worked out, don't bother diffing.
-// const changelogDiff = gitDiff(rawChangelog, newChangelog);
 const didFixChangelog = rawChangelog !== newChangelog;
 if (!didFixChangelog) {
 	console.info("Changelog was already spec compliant.");
@@ -59,7 +61,7 @@ const versioned = type({
 });
 const versionedLock = type({
 	version: string(),
-	lockfileVersion: literal(2),
+	lockfileVersion: enums([2, 3]),
 	packages: type({
 		"": type({
 			version: string()
@@ -96,7 +98,7 @@ if (packageVersion.version !== packageLockVersion.version)
 
 // Update package.json
 const oldPackageJson = `${JSON.stringify(packageJson, undefined, "\t")}\n`;
-packageJson.version = thisRelease.version.version;
+packageJson.version = thisRelease.version;
 const newPackageJson = `${JSON.stringify(packageJson, undefined, "\t")}\n`;
 writeFileSync(packageJsonPath, newPackageJson);
 
@@ -110,8 +112,8 @@ if (!didFixPackageJson) {
 // Update package-lock.json
 const oldPackageLockJson = `${JSON.stringify(packageLockJson, undefined, "\t")}\n`;
 // Maybe we should just run `npm i` instead?
-packageLockJson.version = thisRelease.version.version;
-packageLockJson.packages[""].version = thisRelease.version.version;
+packageLockJson.version = thisRelease.version;
+packageLockJson.packages[""].version = thisRelease.version;
 const newPackageLockJson = `${JSON.stringify(packageLockJson, undefined, "\t")}\n`;
 writeFileSync(packageLockJsonPath, newPackageLockJson);
 

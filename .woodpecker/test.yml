@@ -1,0 +1,15 @@
+# On PR toward `main`: run builds, run tests, and deploy to staging
+
+when:
+  - event: manual
+  - event: pull_request
+    branch: main
+
+steps:
+  test:
+    name: Tests
+    image: node:18
+    commands:
+      - npm ci
+      - npm run build
+      - npm run test:src
