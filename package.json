@@ -3,6 +3,7 @@
 	"version": "0.0.0",
 	"description": "A Discord bot for managing a movie request list.",
 	"private": true,
+
 	"scripts": {
 		"start": "NODE_ENV=development ./node_modules/.bin/nodemon --inspect dist/server.js",
 		"setup": "rm -r dist && npm ci && npm run export-version && npm run build:only --production && npm run commands:deploy",
