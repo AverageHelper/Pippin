@@ -133,7 +133,7 @@ Pippin generates some files as needed. This is normal, and you should not bother
 
 We only support [TheMovieDB](https://www.themoviedb.org/) for now, because their API is reasonable.
 
-If you'd like us to support another platform, please [submit an issue](https://git.average.name/AverageHelper/Pippin/issues/new?template=.github%2fISSUE_TEMPLATE%2ffeature_request.md)!
+If you'd like us to support another platform, please [submit an issue](https://git.average.name/AverageHelper/Pippin/issues/new?template=.gitea%2fISSUE_TEMPLATE%2ffeature_request.md)!
 
 ## Commands
 
