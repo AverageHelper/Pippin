@@ -2,6 +2,8 @@
 
 # Contributing
 
+This project lives primarily at [git.average.name](https://git.average.name/AverageHelper/Pippin). Read-only mirrors also exist on [Codeberg](https://codeberg.org/AverageHelper/Pippin) and [GitHub](https://github.com/AverageHelper/Pippin). Issues or pull requests should be filed at [git.average.name](https://git.average.name/AverageHelper/Pippin). You may sign in or create an account directly, or use one of several OAuth 2.0 providers.
+
 ## Translations
 
 Our app currently only makes sense in United States English. We're
@@ -28,7 +30,7 @@ To create a translation for a language which we don't yet support:
 
 ## Issues
 
-[Issues](https://codeberg.org/AverageHelper/Pippin/issues/new/choose) are very valuable to this project.
+[Issues](https://git.average.name/AverageHelper/Pippin/issues/new/choose) are very valuable to this project.
 
 - Ideas are a valuable source of contributions others can make
 - Problems show where this project is lacking

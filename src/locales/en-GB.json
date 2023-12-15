@@ -54,7 +54,7 @@
 				"preamble-failure": "Erm, something went wrong. Best look into this:",
 				"preamble-success": "I ran the numbers, and it looks like we're all good!",
 				"results-header": "Test Results by Platform",
-				"see-on-codeberg": "See the {list} on our Codeberg.",
+				"see-at-forge": "See the {list} on our Git forge.",
 				"supported-platforms": "list of supported platforms"
 			}
 		},

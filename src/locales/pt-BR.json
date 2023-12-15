@@ -54,7 +54,7 @@
 				"preamble-failure": "Ué, algo deu errado. Melhor olhar para isso:",
 				"preamble-success": "Eu corri os números, e parece que estamos todos bem!",
 				"results-header": "Resultado dos Testes por Plataforma",
-				"see-on-codeberg": "Consulte a {list} em nosso Codeberg.",
+				"see-at-forge": "Consulte a {list} em nosso forjamento Git.",
 				"supported-platforms": "lista de plataformas compatíveis"
 			}
 		},

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The bot will now crash with a warning if the commands have not been deployed.
 
 ### Changed
-- Moved to Codeberg.
+- Moved from GitHub to Forgejo.
 - `/help` now prints a clickable link to the `/suggest` command.
 - Updated Node engine requirement to v18.
 
@@ -17,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial working commit (technically the second commit, not the first, lol)
 
-[Unreleased]: https://codeberg.org/AverageHelper/Pippin/compare/v0.0.0...HEAD
-[0.0.0]: https://codeberg.org/AverageHelper/Pippin/releases/tag/v0.0.0
+[Unreleased]: https://git.average.name/AverageHelper/Pippin/compare/v0.0.0...HEAD
+[0.0.0]: https://git.average.name/AverageHelper/Pippin/releases/tag/v0.0.0

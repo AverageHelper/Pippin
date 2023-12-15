@@ -1,4 +1,3 @@
-import type { NonEmptyArray } from "../@types/global";
 import { URL } from "node:url";
 
 export function isNonEmptyArray<T>(array: ReadonlyArray<T>): array is NonEmptyArray<T> {
