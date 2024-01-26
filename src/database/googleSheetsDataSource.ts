@@ -10,8 +10,12 @@ const logger = useLogger();
 
 // Initialize the sheet
 const DATABASE_SHEET_URL = new URL(requireEnv("DATABASE_SHEET_URL"));
-const sheetId = "";
-logger.debug(`Database Sheet ID: '${sheetId}'`);
+const sheetId = DATABASE_SHEET_URL.pathname.split("/").at(-1) ?? null;
+logger.debug(`Database Sheet ID: '${sheetId ?? "null"}'`);
+
+if (!sheetId) {
+	throw new TypeError(`Could not get sheet ID from URL '${DATABASE_SHEET_URL.href}'`);
+}
 
 let doc: GoogleSpreadsheet | null = new GoogleSpreadsheet(sheetId);
 
