@@ -1,6 +1,5 @@
 import type { Context, Failure, Struct } from "superstruct";
 import { StructError, assert, coerce, define, nonempty, string } from "superstruct";
-import { URL } from "node:url";
 
 function messageFromUnknownError(error: unknown): string {
 	let message: string;

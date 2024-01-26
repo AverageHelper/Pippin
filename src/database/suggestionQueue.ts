@@ -2,7 +2,6 @@ import type { GoogleSpreadsheetCell, GoogleSpreadsheetWorksheet } from "google-s
 import type { MovieSuggestion } from "./schemas.js";
 import type { ReadonlyDeep } from "type-fest";
 import { richErrorMessage } from "../helpers/richErrorMessage.js";
-import { URL } from "node:url";
 import { useLogger } from "../logger.js";
 import {
 	cellWithNormalizedValue,

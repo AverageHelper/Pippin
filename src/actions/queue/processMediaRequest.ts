@@ -13,7 +13,6 @@ import { logUser } from "../../helpers/logUser.js";
 import { richErrorMessage } from "../../helpers/richErrorMessage.js";
 import { SHRUGGIE } from "../../constants/textResponses.js";
 import { t, ti } from "../../i18n.js";
-import { URL } from "node:url";
 import { useLogger } from "../../logger.js";
 
 export interface MediaRequest {

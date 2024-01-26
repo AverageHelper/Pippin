@@ -1,4 +1,3 @@
-import type { URL } from "node:url";
 import { MediaFetchError } from "./MediaFetchError.js";
 
 export class NotFoundError extends MediaFetchError {

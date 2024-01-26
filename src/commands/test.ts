@@ -2,7 +2,6 @@ import type { Command } from "./Command.js";
 import { EmbedBuilder } from "discord.js";
 import { getMovieDbEntry } from "../actions/network/getMovieDbEntry.js";
 import { localizations, t, ti } from "../i18n.js";
-import { URL } from "node:url";
 import { version } from "../version.js";
 
 type FetchTestFunction = typeof getMovieDbEntry;

@@ -1,11 +1,10 @@
 import type { Logger } from "../logger.js";
 import { getMovieDbEntry } from "./network/getMovieDbEntry.js";
 import { richErrorMessage } from "../helpers/richErrorMessage.js";
-import { URL } from "node:url";
 import { useLogger } from "../logger.js";
 
 export interface MediaDetails {
-	url: string;
+	url: URL;
 	title: string;
 	year: string;
 }

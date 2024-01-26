@@ -22,7 +22,7 @@ describe("Movie details", () => {
 		"returns info for movie $url, $year seconds long",
 		async ({ url, year, id }: { url: string; year: string; id: string }) => {
 			const details = await getMovieDbEntry(new URL(url));
-			expectValueEqual(details.url, url);
+			expectValueEqual(details.url.href, `https://www.themoviedb.org/movie/${id}`);
 			expectDefined(details.year);
 			expectValueEqual(details.year, year);
 		}

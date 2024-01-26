@@ -2,7 +2,6 @@ import type { GoogleSpreadsheetCell, GoogleSpreadsheetWorksheet } from "google-s
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { requireEnv } from "../helpers/environment";
 import { useLogger } from "../logger.js";
-import { URL } from "node:url";
 
 const logger = useLogger();
 

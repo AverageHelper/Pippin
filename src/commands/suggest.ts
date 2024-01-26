@@ -6,7 +6,6 @@ import { localizations, t } from "../i18n.js";
 import { logUser } from "../helpers/logUser.js";
 import { processMediaRequest } from "../actions/queue/processMediaRequest.js";
 import { sendMessageInChannel, stopEscapingUriInString } from "../actions/messages/index.js";
-import { URL } from "node:url";
 import { useJobQueue } from "@averagehelper/job-queue";
 
 export const suggest: GlobalCommand = {

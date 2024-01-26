@@ -1,4 +1,4 @@
-import { URL } from "node:url";
+import type { ReadonlyTuple } from "type-fest";
 
 export function isNonEmptyArray<T>(array: ReadonlyArray<T>): array is NonEmptyArray<T> {
 	return array.length > 0;
@@ -33,4 +33,11 @@ export function isUrlString(tbd: unknown): tbd is string {
 	} catch {
 		return false;
 	}
+}
+
+export function isArrayOfLength<Element, Length extends number>(
+	array: ReadonlyArray<Element>,
+	length: Length
+): array is ReadonlyTuple<Element, Length> {
+	return array.length === length;
 }

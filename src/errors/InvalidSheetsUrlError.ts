@@ -1,5 +1,3 @@
-import type { URL } from "node:url";
-
 export class InvalidSheetsUrlError extends Error {
 	readonly code = "422";
 

@@ -3,7 +3,6 @@
 import { assert, enums, string, type } from "superstruct";
 import { parser as changelogParser } from "keep-a-changelog";
 import { readFileSync, writeFileSync } from "node:fs";
-import { URL } from "node:url";
 import semver from "semver";
 
 // Fixes the changelog's footer links and bumps the `version` in [package.json](/package.json) and [package-lock.json](/package-lock.json).
