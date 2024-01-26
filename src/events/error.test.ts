@@ -1,6 +1,8 @@
+import { describe, expect, test, vi } from "vitest";
+
 // Mock the logger to track output
 import type { Logger } from "../logger.js";
-const mockLoggerError = jest.fn();
+const mockLoggerError = vi.fn();
 const logger = {
 	error: mockLoggerError
 } as unknown as Logger;

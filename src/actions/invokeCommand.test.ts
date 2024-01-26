@@ -1,20 +1,21 @@
-import "../../tests/testUtils/leakedHandles.js";
+import type { Mock } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
-jest.mock("../permissions");
+vi.mock("../permissions");
 
 import type { CommandContext, GuildedCommand } from "../commands/index.js";
 import type { Guild, GuildMember, Role } from "discord.js";
 import { invokeCommand } from "./invokeCommand.js";
 
 import { userHasRoleInGuild } from "../permissions/index.js";
-const mockUserHasRoleInGuild = userHasRoleInGuild as jest.Mock<
-	Promise<boolean>,
-	[user: GuildMember, roleId: string, guild: Guild]
+const mockUserHasRoleInGuild = userHasRoleInGuild as Mock<
+	Parameters<typeof userHasRoleInGuild>,
+	ReturnType<typeof userHasRoleInGuild>
 >;
 
-const mockExecute = jest.fn<Promise<void>, Array<unknown>>().mockResolvedValue(undefined);
-const mockReply = jest.fn().mockResolvedValue(undefined);
-const mockReplyPrivately = jest.fn().mockResolvedValue(undefined);
+const mockExecute = vi.fn<Array<unknown>, Promise<void>>().mockResolvedValue(undefined);
+const mockReply = vi.fn().mockResolvedValue(undefined);
+const mockReplyPrivately = vi.fn().mockResolvedValue(undefined);
 
 describe("Invoke Command", () => {
 	const callerId = "the-user";

@@ -1,7 +1,7 @@
 import type { Client, GuildMember, Message } from "discord.js";
-import "../tests/testUtils/leakedHandles.js";
+import { beforeEach, describe, test, vi } from "vitest";
 import { userMention } from "discord.js";
-import { expectDefined } from "../tests/testUtils/expectations/jest.js";
+import { expectDefined } from "../tests/testUtils/expectations/vitest.js";
 
 import { handleCommand } from "./handleCommand.js";
 import { useTestLogger } from "../tests/testUtils/logger.js";
@@ -11,10 +11,10 @@ const logger = useTestLogger();
 describe("Command handler", () => {
 	const botId = "this-user";
 
-	const mockReply = jest.fn().mockResolvedValue(undefined);
-	const mockAuthorSend = jest.fn().mockResolvedValue(undefined);
-	const mockChannelSend = jest.fn().mockResolvedValue(undefined);
-	const mockChannelSendTyping = jest.fn().mockResolvedValue(undefined);
+	const mockReply = vi.fn().mockResolvedValue(undefined);
+	const mockAuthorSend = vi.fn().mockResolvedValue(undefined);
+	const mockChannelSend = vi.fn().mockResolvedValue(undefined);
+	const mockChannelSendTyping = vi.fn().mockResolvedValue(undefined);
 
 	const mockClient: Client<true> = {
 		user: { id: botId },
@@ -39,7 +39,7 @@ describe("Command handler", () => {
 		},
 		guild: {
 			members: {
-				fetch: jest.fn().mockImplementation(
+				fetch: vi.fn().mockImplementation(
 					(userId: string) =>
 						new Promise(resolve => {
 							if (userId === mockSenderMember.user.id) {
@@ -57,6 +57,6 @@ describe("Command handler", () => {
 	beforeEach(() => {
 		mockMessage.content = "Some words";
 		mockMessage.author.bot = false;
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 });

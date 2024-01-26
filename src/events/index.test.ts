@@ -1,13 +1,15 @@
+import { describe, expect, test, vi } from "vitest";
+
 // Mock the client to track 'on' and 'once' calls
-const mockOn = jest.fn();
-const mockOnce = jest.fn();
+const mockOn = vi.fn();
+const mockOnce = vi.fn();
 class MockClient {
 	on = mockOn;
 	once = mockOnce;
 }
 
-const Discord = jest.requireActual<typeof import("discord.js")>("discord.js");
-jest.mock("discord.js", () => ({
+const Discord = await vi.importActual<typeof import("discord.js")>("discord.js");
+vi.mock("discord.js", () => ({
 	...Discord,
 	Client: MockClient
 }));
@@ -17,7 +19,7 @@ const client = new Client({ intents: [] });
 
 // Mock the logger so nothing is printed
 import { useTestLogger } from "../../tests/testUtils/logger.js";
-jest.mock("../logger", () => ({ useLogger: useTestLogger }));
+vi.mock("../logger", () => ({ useLogger: useTestLogger }));
 
 // Import the unit under test
 import { _add, allEventHandlers, registerEventHandlers } from "./index.js";
@@ -58,7 +60,7 @@ describe("allEventHandlers", () => {
 
 		expect(registerEventHandlers(client)).toBeUndefined();
 
-		expect(mockOnce).toHaveBeenCalledWith(fakeReadyEvent.name, expect.toBeFunction());
-		expect(mockOn).toHaveBeenCalledWith(fakeMessageEvent.name, expect.toBeFunction());
+		expect(mockOnce).toHaveBeenCalledWith(fakeReadyEvent.name, expect.any(Function));
+		expect(mockOn).toHaveBeenCalledWith(fakeMessageEvent.name, expect.any(Function));
 	});
 });

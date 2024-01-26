@@ -18,7 +18,7 @@ export function useTestLogger(): Logger {
 		logger = winston.createLogger({
 			level,
 			format: winston.format.json(),
-			defaultMeta: { service: "jest" },
+			defaultMeta: { service: "vitest" },
 			transports: [
 				new winston.transports.Console({
 					format: winston.format.cli()

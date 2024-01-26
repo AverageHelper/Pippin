@@ -1,14 +1,18 @@
 import type { MediaDetails } from "./getMediaDetails.js";
-import { URL } from "node:url";
+import type { Mock } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { MediaFetchError } from "../errors/MediaFetchError.js";
 
-jest.mock("./network/getBandcampTrack.js", () => ({ getBandcampTrack: jest.fn() }));
-jest.mock("./network/getPonyFmTrack.js", () => ({ getPonyFmTrack: jest.fn() }));
-jest.mock("./network/getSoundCloudTrack.js", () => ({ getSoundCloudTrack: jest.fn() }));
-jest.mock("./network/getYouTubeVideo.js", () => ({ getYouTubeVideo: jest.fn() }));
+vi.mock("./network/getBandcampTrack.js", () => ({ getBandcampTrack: vi.fn() }));
+vi.mock("./network/getPonyFmTrack.js", () => ({ getPonyFmTrack: vi.fn() }));
+vi.mock("./network/getSoundCloudTrack.js", () => ({ getSoundCloudTrack: vi.fn() }));
+vi.mock("./network/getYouTubeVideo.js", () => ({ getYouTubeVideo: vi.fn() }));
 
 import { getMovieDbEntry } from "./network/getMovieDbEntry.js";
-const mockGetMovieDbEntry = getMovieDbEntry as jest.Mock<Promise<MediaDetails>, [URL]>;
+const mockGetMovieDbEntry = getMovieDbEntry as Mock<
+	Parameters<typeof getMovieDbEntry>,
+	ReturnType<typeof getMovieDbEntry>
+>;
 
 import { getMediaDetails } from "./getMediaDetails.js";
 
@@ -57,7 +61,7 @@ describe("Video details", () => {
 		const dirtyUrl = `${url} Text and stuff`;
 		const cleanUrl = new URL(url);
 
-		await expect(getMediaDetails(dirtyUrl, null)).resolves.toBeObject();
+		await expect(getMediaDetails(dirtyUrl, null)).resolves.toBe(Object);
 		expect(mockGetMovieDbEntry).toHaveBeenCalledOnce();
 		expect(mockGetMovieDbEntry).toHaveBeenCalledWith(cleanUrl);
 	});

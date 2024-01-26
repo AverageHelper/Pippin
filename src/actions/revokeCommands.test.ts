@@ -1,13 +1,14 @@
 import type { Client } from "discord.js";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { useTestLogger } from "../../tests/testUtils/logger.js";
 import { revokeCommands } from "./revokeCommands.js";
 
 const logger = useTestLogger();
 
 describe("Command revocations", () => {
-	const mockApplicationCommandsSet = jest.fn();
-	const mockGuildCommandsSet = jest.fn();
-	const mockFetchOauthGuilds = jest.fn();
+	const mockApplicationCommandsSet = vi.fn();
+	const mockGuildCommandsSet = vi.fn();
+	const mockFetchOauthGuilds = vi.fn();
 
 	const mockClient = {
 		application: {

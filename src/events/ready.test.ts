@@ -1,9 +1,12 @@
+import type { Mock } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+
 // Create a test logger
 import { useTestLogger } from "../../tests/testUtils/logger.js";
 const logger = useTestLogger();
 
 // Mock the client to track 'setActivity' calls and provide basic info
-const mockSetActivity = jest.fn();
+const mockSetActivity = vi.fn();
 class MockClient {
 	user = {
 		username: "Pippin",
@@ -15,8 +18,8 @@ class MockClient {
 	}
 }
 
-const Discord = jest.requireActual<typeof import("discord.js")>("discord.js");
-jest.mock("discord.js", () => ({
+const Discord = await vi.importActual<typeof import("discord.js")>("discord.js");
+vi.mock("discord.js", () => ({
 	...Discord,
 	Client: MockClient
 }));
@@ -26,23 +29,32 @@ const client = new Client({ intents: [] });
 
 // Mock parseArgs so we can control what the args are
 import type { Args } from "../helpers/parseArgs";
-const mockParseArgs = jest.fn<Args, []>();
-jest.mock("../helpers/parseArgs.js", () => ({ parseArgs: mockParseArgs }));
+const mockParseArgs = vi.fn<[], Args>();
+vi.mock("../helpers/parseArgs.js", () => ({ parseArgs: mockParseArgs }));
 
 // Mock deployCommands so we can track it
-jest.mock("../actions/deployCommands.js");
+vi.mock("../actions/deployCommands.js");
 import { deployCommands } from "../actions/deployCommands.js";
-const mockDeployCommands = deployCommands as jest.Mock;
+const mockDeployCommands = deployCommands as Mock<
+	Parameters<typeof deployCommands>,
+	ReturnType<typeof deployCommands>
+>;
 
 // Mock revokeCommands so we can track it
-jest.mock("../actions/revokeCommands.js");
+vi.mock("../actions/revokeCommands.js");
 import { revokeCommands } from "../actions/revokeCommands.js";
-const mockRevokeCommands = revokeCommands as jest.Mock;
+const mockRevokeCommands = revokeCommands as Mock<
+	Parameters<typeof revokeCommands>,
+	ReturnType<typeof revokeCommands>
+>;
 
 // Mock verifyCommandDeployments so we can track it
-jest.mock("../actions/verifyCommandDeployments.js");
+vi.mock("../actions/verifyCommandDeployments.js");
 import { verifyCommandDeployments } from "../actions/verifyCommandDeployments.js";
-const mockVerifyCommandDeployments = verifyCommandDeployments as jest.Mock;
+const mockVerifyCommandDeployments = verifyCommandDeployments as Mock<
+	Parameters<typeof verifyCommandDeployments>,
+	ReturnType<typeof verifyCommandDeployments>
+>;
 
 // TODO: Mock the logger so nothing is printed
 
@@ -62,7 +74,7 @@ describe("once(ready)", () => {
 	});
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 
 	test("doesn't touch commands if the `deploy` and `revoke` flags are not set", async () => {

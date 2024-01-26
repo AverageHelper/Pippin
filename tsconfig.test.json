@@ -3,8 +3,7 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"target": "ES2017",
-		"module": "ESNext",
-		"types": ["node", "jest", "jest-extended"]
+		"module": "ESNext"
 	},
-	"include": ["src/**/*.ts", "src/**/*.json", "scripts/**/*"]
+	"include": ["./*.ts", "src/**/*.ts", "src/**/*.json", "scripts/**/*"]
 }

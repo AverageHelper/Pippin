@@ -1,30 +1,41 @@
-import "../../tests/testUtils/leakedHandles.js";
+import type { Mock } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
-jest.mock("../useQueueStorage.js");
-jest.mock("../actions/getMediaDetails.js");
+vi.mock("../useQueueStorage.js");
+vi.mock("../actions/getMediaDetails.js");
 
 import {
 	countAllStoredEntriesFromSender,
 	getStoredQueueConfig,
 	pushEntryToQueue
 } from "../useQueueStorage.js";
-const mockCountAllStoredEntriesFromSender = countAllStoredEntriesFromSender as jest.Mock;
-const mockGetStoredQueueConfig = getStoredQueueConfig as jest.Mock;
-const mockQueuePush = pushEntryToQueue as jest.Mock;
+const mockCountAllStoredEntriesFromSender = countAllStoredEntriesFromSender as Mock<
+	Parameters<typeof countAllStoredEntriesFromSender>,
+	ReturnType<typeof countAllStoredEntriesFromSender>
+>;
+const mockGetStoredQueueConfig = getStoredQueueConfig as Mock<
+	Parameters<typeof getStoredQueueConfig>,
+	ReturnType<typeof getStoredQueueConfig>
+>;
+const mockQueuePush = pushEntryToQueue as Mock<
+	Parameters<typeof pushEntryToQueue>,
+	ReturnType<typeof pushEntryToQueue>
+>;
 
 import { randomInt } from "../helpers/randomInt.js";
 import { getMediaDetails } from "../actions/getMediaDetails.js";
-const mockGetMediaDetails = getMediaDetails as jest.Mock;
-mockGetMediaDetails.mockImplementation(async (url: string) => {
+const mockGetMediaDetails = getMediaDetails as Mock<
+	Parameters<typeof getMediaDetails>,
+	ReturnType<typeof getMediaDetails>
+>;
+mockGetMediaDetails.mockImplementation(async url => {
 	// Enough uncertainty that *something* should go out of order if it's going to
 	const ms = randomInt(50);
 	await new Promise(resolve => setTimeout(resolve, ms));
 	return {
-		url,
-		title: "video-title",
-		duration: {
-			seconds: 500
-		}
+		url: typeof url === "string" ? new URL(url) : url,
+		title: "",
+		year: "2024"
 	};
 });
 
@@ -33,7 +44,6 @@ import type { GuildedCommandContext } from "./Command.js";
 import type { ReadonlyTuple } from "type-fest";
 import { ApplicationCommandOptionType } from "discord.js";
 import { suggest } from "./suggest.js";
-import { URL } from "node:url";
 import { useTestLogger } from "../../tests/testUtils/logger.js";
 
 const logger = useTestLogger();
@@ -53,12 +63,12 @@ describe("Media request via URL", () => {
 	];
 	const botId = "this-user";
 
-	const mockPrepareForLongRunningTasks = jest.fn().mockResolvedValue(undefined);
-	const mockReply = jest.fn().mockResolvedValue(undefined);
-	const mockReplyPrivately = jest.fn().mockResolvedValue(undefined);
-	const mockChannelSend = jest.fn().mockResolvedValue(undefined);
-	const mockDeleteMessage = jest.fn().mockResolvedValue(undefined);
-	const mockFollowUp = jest.fn().mockResolvedValue(undefined);
+	const mockPrepareForLongRunningTasks = vi.fn().mockResolvedValue(undefined);
+	const mockReply = vi.fn().mockResolvedValue(undefined);
+	const mockReplyPrivately = vi.fn().mockResolvedValue(undefined);
+	const mockChannelSend = vi.fn().mockResolvedValue(undefined);
+	const mockDeleteMessage = vi.fn().mockResolvedValue(undefined);
+	const mockFollowUp = vi.fn().mockResolvedValue(undefined);
 
 	mockCountAllStoredEntriesFromSender.mockResolvedValue(0);
 
@@ -69,9 +79,6 @@ describe("Media request via URL", () => {
 
 	mockGetStoredQueueConfig.mockResolvedValue({
 		blacklistedUsers: [],
-		cooldownSeconds: 600,
-		entryDurationMaxSeconds: null,
-		queueDurationSeconds: null,
 		submissionMaxQuantity: null
 	});
 
@@ -101,7 +108,7 @@ describe("Media request via URL", () => {
 			},
 			guild: {
 				members: {
-					fetch: jest.fn().mockImplementation(
+					fetch: vi.fn().mockImplementation(
 						(userId: string) =>
 							new Promise(resolve => {
 								if (userId === mockSenderMember.user.id) {
@@ -135,7 +142,7 @@ describe("Media request via URL", () => {
 
 			await suggest.execute(context);
 			expect(mockReply).toHaveBeenCalledOnce();
-			expect(mockReply).toHaveBeenCalledWith(expect.toBeString());
+			expect(mockReply).toHaveBeenCalledWith(expect.stringContaining(""));
 
 			const calls = mockReply.mock.calls[0] as Array<unknown>;
 			const description = calls[0];
@@ -157,7 +164,14 @@ describe("Media request via URL", () => {
 			// 	isDone: false
 			// });
 			mockCountAllStoredEntriesFromSender.mockResolvedValueOnce(1);
-			return Promise.resolve();
+			return Promise.resolve({
+				sentAt: new Date(),
+				sentBy: mockMessage1.author.id,
+				theMovieDbId: "0",
+				title: "",
+				url: new URL("https://example.com"),
+				year: "2024"
+			});
 		});
 
 		const context1 = {
@@ -203,7 +217,7 @@ describe("Media request via URL", () => {
 		// queue.push should only have been called on the first URL
 		expect(mockQueuePush).toHaveBeenCalledOnce();
 		expect(mockQueuePush).toHaveBeenCalledWith(
-			expect.toContainEntry(["url", urls[0]]),
+			expect.objectContaining({ url: urls[0] }),
 			queueChannel
 		);
 
@@ -254,10 +268,10 @@ describe("Media request via URL", () => {
 		urls.forEach((url, i) => {
 			expect(mockQueuePush).toHaveBeenNthCalledWith(
 				i + 1,
-				expect.toContainEntries([
-					["url", url],
-					["senderId", `user-${i + 1}`]
-				]),
+				expect.objectContaining({
+					url,
+					senderId: `user-${i + 1}`
+				}),
 				queueChannel
 			);
 		});

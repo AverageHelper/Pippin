@@ -1,5 +1,5 @@
-import { expectDefined, expectValueEqual } from "../../../tests/testUtils/expectations/jest.js";
-import { URL } from "node:url";
+import { describe, expect, test } from "vitest";
+import { expectDefined, expectValueEqual } from "../../../tests/testUtils/expectations/vitest.js";
 import { MediaFetchError } from "../../errors/MediaFetchError.js";
 
 // Import the unit under test

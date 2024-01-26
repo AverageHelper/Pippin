@@ -1,7 +1,7 @@
-import "../../../tests/testUtils/leakedHandles.js";
 import type { Message } from "discord.js";
 import type { Range } from "./editMessage.js";
-import { expectValueEqual } from "../../../tests/testUtils/expectations/jest.js";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import { expectValueEqual } from "../../../tests/testUtils/expectations/vitest.js";
 import {
 	editMessage,
 	escapeUriInString,
@@ -10,7 +10,7 @@ import {
 	suppressEmbedsForMessage
 } from "./editMessage.js";
 
-const mockEdit = jest.fn();
+const mockEdit = vi.fn();
 
 describe("editing messages", () => {
 	const message = {
@@ -25,19 +25,19 @@ describe("editing messages", () => {
 	});
 
 	test("returns false when the message edit fails", async () => {
-		jest.spyOn(global.console, "error").mockImplementation(() => undefined);
+		vi.spyOn(global.console, "error").mockImplementation(() => undefined);
 
 		mockEdit.mockRejectedValueOnce(new Error("This is a test"));
 		expectValueEqual(await editMessage(message, newValue), false);
 		expect(mockEdit).toHaveBeenCalledOnce();
 		expect(mockEdit).toHaveBeenCalledWith(newValue);
 
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 });
 
 describe("Suppress embeds", () => {
-	const mockSuppressEmbeds = jest.fn();
+	const mockSuppressEmbeds = vi.fn();
 
 	const meId = "self-1234";
 	const otherId = "other-1234";
@@ -61,7 +61,7 @@ describe("Suppress embeds", () => {
 		});
 
 		test("edits the message content directly to suppress embeds", async () => {
-			await expect(suppressEmbedsForMessage(message, true)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, true)).resolves.toBe(undefined);
 			expect(mockSuppressEmbeds).not.toHaveBeenCalled();
 			expect(mockEdit).toHaveBeenCalledOnce();
 			expect(mockEdit).toHaveBeenCalledWith({
@@ -72,7 +72,7 @@ describe("Suppress embeds", () => {
 		});
 
 		test("edits the message content directly to unsuppress embeds", async () => {
-			await expect(suppressEmbedsForMessage(message, false)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, false)).resolves.toBe(undefined);
 			expect(mockSuppressEmbeds).not.toHaveBeenCalled();
 			expect(mockEdit).toHaveBeenCalledOnce();
 			expect(mockEdit).toHaveBeenCalledWith({
@@ -82,13 +82,13 @@ describe("Suppress embeds", () => {
 		});
 
 		test("doesn't throw if message edit fails", async () => {
-			jest.spyOn(global.console, "error").mockImplementation(() => undefined);
+			vi.spyOn(global.console, "error").mockImplementation(() => undefined);
 			mockEdit.mockRejectedValueOnce(new Error("This is a test"));
 
-			await expect(suppressEmbedsForMessage(message, true)).resolves.toBeUndefined();
-			await expect(suppressEmbedsForMessage(message, false)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, true)).resolves.toBe(undefined);
+			await expect(suppressEmbedsForMessage(message, false)).resolves.toBe(undefined);
 
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 	});
 
@@ -108,28 +108,28 @@ describe("Suppress embeds", () => {
 		});
 
 		test("the `suppress`` parameter defaults to `true`", async () => {
-			await expect(suppressEmbedsForMessage(message)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message)).resolves.toBe(undefined);
 			expect(mockSuppressEmbeds).toHaveBeenCalledOnce();
 			expect(mockSuppressEmbeds).toHaveBeenCalledWith(true);
 			expect(mockEdit).not.toHaveBeenCalled();
 		});
 
 		test("calls the suppressEmbeds method of the message if the sender is not us", async () => {
-			await expect(suppressEmbedsForMessage(message, true)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, true)).resolves.toBe(undefined);
 			expect(mockSuppressEmbeds).toHaveBeenCalledOnce();
 			expect(mockSuppressEmbeds).toHaveBeenCalledWith(true);
 			expect(mockEdit).not.toHaveBeenCalled();
 		});
 
 		test("doesn't throw if message edit fails", async () => {
-			jest.spyOn(global.console, "error").mockImplementation(() => undefined);
+			vi.spyOn(global.console, "error").mockImplementation(() => undefined);
 			mockSuppressEmbeds.mockRejectedValueOnce(new Error("This is a test"));
-			await expect(suppressEmbedsForMessage(message, true)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, true)).resolves.toBe(undefined);
 
 			mockSuppressEmbeds.mockRejectedValueOnce(new Error("This is a test"));
-			await expect(suppressEmbedsForMessage(message, false)).resolves.toBeUndefined();
+			await expect(suppressEmbedsForMessage(message, false)).resolves.toBe(undefined);
 
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 	});
 });
