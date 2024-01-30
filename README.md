@@ -161,6 +161,8 @@ Display's the current version of Pippin Core. (see [package.json](https://git.av
 
 ## Contributing
 
+This project lives primarily at [git.average.name](https://git.average.name/AverageHelper/Pippin). Read-only mirrors also exist on [Codeberg](https://codeberg.org/AverageHelper/Pippin) and [GitHub](https://github.com/AverageHelper/Pippin). Issues or pull requests should be filed at [git.average.name](https://git.average.name/AverageHelper/Pippin). You may sign in or create an account directly, or use one of several OAuth 2.0 providers.
+
 This project is entirely open source. Do with it what you will. If you're willing to help me improve this project, consider [filing an issue](https://git.average.name/AverageHelper/Pippin/issues/new/choose).
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for ways to contribute.
